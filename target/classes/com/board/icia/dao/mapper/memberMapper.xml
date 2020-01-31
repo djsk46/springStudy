@@ -3,8 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.icia.dao.IMemberDao">
-<select id="getLoginResult" parameterType="com.board.icia.dto.Member" resultType="boolean">
-	select count(*) from member where id=#{id} and pw=#{pw}
-</select>
+	<select id="getLoginResult"
+		parameterType="com.board.icia.dto.Member" resultType="boolean">
+		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{m_id} AND M_PWD=#{m_pwd}
+	</select>
+	<insert id="memberJoin" parameterType="member">
+		INSERT INTO M VALUES(#{m_id},#{m_pwd},#{m_name},#{m_birth},#{m_addr},#{m_phone},default)
+	</insert>
 	
+	
+	<select id="getSecurityPwd" parameterType="String" resultType="String">
+	SELECT M_PWD FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
+	
+	
+	
+	<select id="getMemberInfo" parameterType="String" resultType="member">
+	SELECT * FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
 </mapper>
+	
+	
+	

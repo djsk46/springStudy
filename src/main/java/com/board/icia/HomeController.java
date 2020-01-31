@@ -18,18 +18,53 @@ import com.board.icia.dto.Member;
 import com.board.icia.service.MemberManagement;
 
 @Controller
-public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+public class HomeController {	
 	@Autowired
 	private MemberManagement mm;
 	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	ModelAndView mav=new ModelAndView();
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
-		
-		ModelAndView mav=mm.access();
+		logger.info("로그인 화면으로 이동");
+		mav=new ModelAndView();
+		mav.setViewName("home");
+		return mav;
+	}
+	//로그인
+	@RequestMapping(value = "/access", method = RequestMethod.POST)
+	public ModelAndView access(Member mb) {
+	
+		System.out.println("id="+mb.getM_id());
+		System.out.println("pw="+mb.getM_pwd());
+		mav=mm.memberAccess(mb);
 		return mav;
 	}
 	
-}
+	//회원가입페이지
+	@RequestMapping(value = "/joinfrm", method = RequestMethod.GET)
+	public ModelAndView joinFrm() {
+		
+		mav=new ModelAndView();
+		mav.setViewName("joinFrm");
+		
+		
+		return mav;
+	}
+
+	
+	
+	//회원가입
+	@RequestMapping(value = "/memberjoin", method = RequestMethod.POST)
+	public ModelAndView memberjoin(Member mb) {
+		
+		mav=mm.memberjoin(mb);
+		
+		
+		return mav;
+	}
+	
+	
+}//controller End
