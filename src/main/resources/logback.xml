@@ -7,7 +7,7 @@
 	</appender>
 	<logger name="com.board.icia" level="off" />
 	<!--테이블에 결과를 출력하기 위해서 info대신 trace 설정-->
-	<logger name="jdbc.resultsettable" level="info" />
+	<logger name="jdbc.resultsettable" level="trace" />
 	<logger name="jdbc.audit" level="off" />
 	<logger name="jdbc.resultset" level="off" />
 	<logger name="jdbc.sqlonly" level="info" />

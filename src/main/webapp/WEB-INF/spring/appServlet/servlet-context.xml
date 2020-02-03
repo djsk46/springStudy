@@ -32,6 +32,21 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<!--Session Interceptor(가로채기)  -->
+	<interceptors>
+	<interceptor>
+	<!--mapping의 모든 요청은 Controller에 도착하기 전에 가로챈다.  -->
+	<mapping path="/*"/>
+	<!--exclude-mapping의 요천은 가로채지 않는다.  -->
+	<exclude-mapping path="/"/>
+	<exclude-mapping path="/access"/>
+	<exclude-mapping path="/joinfrm"/>
+	<exclude-mapping path="/memberjoin"/>
+	<beans:bean class="com.board.icia.userClass.SessionInterseptor"/>
+	</interceptor>
+	</interceptors>
+	
 
 </beans:beans>
 

@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
+@Alias("member")
 //@Accessors(chain=true) //setsetsetsetset
 public class Member {
 	private String m_id;

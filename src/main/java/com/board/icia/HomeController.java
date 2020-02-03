@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +37,19 @@ public class HomeController {
 	}
 	//로그인
 	@RequestMapping(value = "/access", method = RequestMethod.POST)
-	public ModelAndView access(Member mb) {
+	public ModelAndView access(Member mb, HttpServletRequest req) {
 	
 		System.out.println("id="+mb.getM_id());
 		System.out.println("pw="+mb.getM_pwd());
-		mav=mm.memberAccess(mb);
+		mav=mm.memberAccess(mb,req);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ModelAndView logout(HttpServletRequest req) {
+		req.getSession().invalidate(); //세션초기화
+		mav=new ModelAndView();
+		mav.setViewName("home");
 		return mav;
 	}
 	
