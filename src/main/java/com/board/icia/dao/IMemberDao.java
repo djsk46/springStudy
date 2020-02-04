@@ -4,6 +4,8 @@ package com.board.icia.dao;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.board.icia.dto.Member;
 public interface IMemberDao {
 	
@@ -13,6 +15,7 @@ public interface IMemberDao {
 	
 	public String getSecurityPwd(String m_id);
 	
+	//@Select("SELECT * FROM MINFO WHERE M_ID=#{m_id}")
 	public Member getMemberInfo(String m_id);
 
 	public boolean hashMapTest(Map<String, String> hMap);

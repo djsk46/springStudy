@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Board;
+import com.board.icia.dto.Reply;
+import com.board.icia.userClass.Paging;
 
 @Service
 public class BoardMangement {
@@ -18,7 +20,7 @@ public class BoardMangement {
 	private IBoardDao bDao;
 	ModelAndView mav;
 
-	public ModelAndView getBoardList(Integer pageNum, HttpServletRequest req) {
+	public ModelAndView getBoardList(Integer pageNum) {
 		List<Board> bList = null;
 		int pNum = (pageNum == null) ? 1 : pageNum;
 		mav = new ModelAndView();
@@ -31,6 +33,7 @@ public class BoardMangement {
 			if (bList != null) {
 				System.out.println("size=" + bList.size());
 				mav.addObject("bList", bList);
+				mav.addObject("paging",getPaging(pNum));
 				view = "boardList";// jsp
 			}
 		 else {
@@ -41,12 +44,26 @@ public class BoardMangement {
 		return mav;
 	}
 
-	public ModelAndView getContents(Integer bNum, HttpServletRequest req) {
+	private String getPaging(int pNum) {
+		    int maxNum=bDao.getBoardCount();       // 전체 글의 개수
+		    int listCount=10; //10      // 페이지당 나타낼 글의 갯수
+		    int pageCount=2; //2      // 페이지그룹당 페이지 갯수
+		    String boardName="boardlist";    // 게시판의 종류(게시판이 여러개일때 url)
+		    Paging paging=new Paging(maxNum,pNum,listCount,pageCount,boardName);
+		return paging.makeHtmlPaging();
+	}
+
+	public ModelAndView getContents(Integer bNum) {
 		mav=new ModelAndView();
 		String view=null;
 		
 		//if(req.getSession().getAttribute("id")!=null){
-			view="boardList";
+		Board board=bDao.getContents(bNum);
+		mav.addObject("board",board);
+		System.out.println("board="+board);
+		List<Reply> rList=bDao.getReplyList(bNum);
+		mav.addObject("rList",rList);
+			view="boardContentsAjax";	//jsp
 		//}
 		//else {
 			//view="home";

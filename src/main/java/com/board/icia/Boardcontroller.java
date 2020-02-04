@@ -21,14 +21,14 @@ public class Boardcontroller {
 	ModelAndView mav;
 	
 	@RequestMapping(value = "/boardlist", method = RequestMethod.GET)	//method는 생략하면 get post 모두 가능
-	public ModelAndView boardlist(Integer pageNum,HttpServletRequest req) { //null
-		mav=bm.getBoardList(pageNum,req);
+	public ModelAndView boardlist(Integer pageNum) { //null
+		mav=bm.getBoardList(pageNum);//인터셉터에서 로그인여부 확인했기때문에 request 생략
 		return mav;
 	}
 	
 	@RequestMapping(value = "/contents", method = RequestMethod.GET)
-	public ModelAndView contents(Integer bNum,HttpServletRequest req) { 
-		mav=bm.getContents(bNum,req);
+	public ModelAndView contents(Integer bNum) { 
+		mav=bm.getContents(bNum);
 		return mav;
 	}
 	

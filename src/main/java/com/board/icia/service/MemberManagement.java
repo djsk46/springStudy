@@ -53,6 +53,7 @@ public class MemberManagement {
 				HttpSession session=req.getSession();
 				session.setAttribute("id",mb.getM_id());
 				mb=mDao.getMemberInfo(mb.getM_id());
+				
 				session.setAttribute("mb", mb);
 				//mav.addObject("mb", mb);	//request영역에 모델객체 저장
 				//view="boardList";

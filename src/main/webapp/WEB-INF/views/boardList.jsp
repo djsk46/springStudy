@@ -14,6 +14,58 @@
 		
 	}
 </script>
+<style>
+html, body {
+	height: 100%;
+	margin: 0
+}
+
+#articleView_layer {
+	display: none;
+	position: fixed;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%
+}
+
+#articleView_layer.open {
+	display: block;
+	color: red
+}
+
+#articleView_layer #bg_layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+	z-index: 100
+}
+
+#contents_layer {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	width: 400px;
+	height: 400px;
+	margin: -150px 0 0 -194px;
+	padding: 28px 28px 0 28px;
+	border: 2px solid #555;
+	background: #fff;
+	font-size: 12px;
+	z-index: 200;
+	color: #767676;
+	line-height: normal;
+	white-space: normal;
+	overflow: scroll
+}
+</style>
+
 </head>
 
 <body>
@@ -73,29 +125,48 @@
 </c:forEach>
 </table>
 
-<h3>아이디 : ${mb.m_id }</h3>
-<h3>이름 : ${mb.m_name }</h3>
-<h3>주소 : ${mb.m_addr }</h3>
-<h3>생일 : ${mb.m_birth }</h3>
-<h3>폰번호 : ${mb.m_phone }</h3>
+<!--페이징  -->
+<div align="center">${paging }</div>
+
+<!--모달 박스  -->
+<div id="articleView_layer">
+	<div id="bg_layer"></div>
+		<div id="contents_layer"></div>
+</div>
 
 
 <script>
+
+
 function articleView(num) {
+	$("#articleView_layer").addClass('open');	//modal박스 오픈
 	$.ajax({
 		type:'get',
 		url:'contents',
 		data:{bNum:num},
-		dataType:'html',
+		dataType:'html',	//boardContentsAjax.jsp을 html형식으로 쫙~ 긁어온다.
 		success:function(data){
-			alert(data);
-		}
+			$("#contents_layer").html(data);
+		},
 		error:function(error){
-			alert:function(error);
+			console.log(error);
 		}
 		
 	});//ajax End
 	
+	//모달박스 해제
+	var $layerWindow=$("#articleView_layer");
+	$layerWindow.find("#bg_layer").on("mousedown",function(event){
+		console.log(event);
+		$layerWindow.removeClass("open");
+	}); //on End
+	
+	$(document).keydown(function (event) {
+		if(event.keyCode!=27) return;
+		else if($layerWindow.hasClass('open')){
+		$layerWindow.removeClass('open');
+		}
+	});	//keydown End
 }//fct End
 </script>
 </body>

@@ -3,11 +3,37 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.board.icia.dao.IBoardDao">
-	
-	<select id="getBoardList" parameterType="Integer" resultType="board">
-	<![CDATA[
+
+	<select id="getBoardList" parameterType="Integer"
+		resultType="board">
+	<!-- <![CDATA[
       SELECT * FROM BLIST_1 WHERE RONUM >= #{pNum}*10-9 AND RONUM <= #{pNum}*10
-      ]]> 
+      ]]> -->
+      
+	<!--/*+INDEX_DESC(B PK_B_NUM) */ : 인덱스를 타고 내림차순 검색하시오 -->
+ 		<![CDATA[	
+ 		SELECT * FROM ( SELECT /*+INDEX_DESC(B PK_B_NUM) */ ROWNUM AS RN,B.* FROM B WHERE ROWNUM<=#{pNum}*10)
+ 		WHERE RN >=#{pNum}*10-9
+ 		]]>
 	</select>
+
+
+	<select id="getContents" parameterType="Integer"
+		resultType="board">
+	<![CDATA[
+      SELECT * FROM BLIST_1 WHERE B_NUM=#{bNum}
+      ]]>
+	</select>
+
+	<select id="getReplyList" parameterType="Integer"
+		resultType="reply">
+	<![CDATA[
+      SELECT * FROM RLIST WHERE R_BNUM=#{bNum}
+      ]]>
+	</select>
+
+
+
+
 
 </mapper>
