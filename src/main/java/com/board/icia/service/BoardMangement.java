@@ -1,6 +1,8 @@
 package com.board.icia.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,7 @@ import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.userClass.Paging;
+import com.google.gson.Gson;
 
 @Service
 public class BoardMangement {
@@ -70,6 +73,33 @@ public class BoardMangement {
 		//}
 		mav.setViewName(view);
 		return mav;
+	}
+
+	public String replyInsert(Reply r) {
+		String json=null;
+		if(bDao.replyInsert(r)) {
+			List<Reply> rList=bDao.getReplyList(r.getR_bnum());
+			json=new Gson().toJson(rList);
+			System.out.println("json="+json);
+		}
+		else {
+			json=null;
+		}
+		return json;
+	}
+
+	public Map<String, List<Reply>> replyInsertJackson(Reply r) {
+		Map<String, List<Reply>> rMap=null;
+		if(bDao.replyInsert(r)) {
+			List<Reply> rList=bDao.getReplyList(r.getR_bnum());
+			rMap=new HashMap<String, List<Reply>>();
+			rMap.put("rList",rList);
+			System.out.println("rMap="+rMap);
+		}
+		else {
+			rMap=null;
+		}
+		return rMap;
 	}
 
 

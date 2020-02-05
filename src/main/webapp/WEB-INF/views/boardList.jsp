@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script src="js/jquery.serializeObject.js"></script>
+
+
+
 <script>
 	function logout() {
 		$("#logoutFrm").submit();
@@ -117,7 +121,8 @@ html, body {
 <c:forEach var="board" items="${bList}">
 	<tr height="25">
 	<td align="center">${board.b_num }</td>
-	<td align="center"><a href="#" onclick="articleView(${board.b_num })">${board.b_title }</a></td>
+	<!--# : 페이지 맨 위  #; : 현재 위치  -->
+	<td align="center"><a href="#;" onclick="articleView(${board.b_num })">${board.b_title }</a></td>
 	<td align="center">${board.b_id }</td>
 	<td align="center">${board.b_date }</td>
 	<td align="center">${board.b_views }</td>
