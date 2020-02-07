@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.service.BoardMangement;
 
@@ -33,4 +34,18 @@ public class Boardcontroller {
 	}
 	
 	
+	@RequestMapping(value = "/boarddelete", method = RequestMethod.GET)
+	public ModelAndView boardDelete(Integer bNum,RedirectAttributes attr) { 
+		mav=bm.boardDelete(bNum,attr);
+		return mav;
+	}
+
+	
+	//글쓰기 페이지로 이동
+	@RequestMapping(value = "/writefrm", method = RequestMethod.GET)
+	public ModelAndView writeFrm() { 
+		mav=new ModelAndView();
+		mav.setViewName("writeFrm");
+		return mav;
+	}
 }

@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
+import com.board.icia.userClass.DbException;
 import com.board.icia.userClass.Paging;
-import com.google.gson.Gson;
 
 @Service
 public class BoardMangement {
@@ -75,19 +77,20 @@ public class BoardMangement {
 		return mav;
 	}
 
-	public String replyInsert(Reply r) {
-		String json=null;
-		if(bDao.replyInsert(r)) {
-			List<Reply> rList=bDao.getReplyList(r.getR_bnum());
-			json=new Gson().toJson(rList);
-			System.out.println("json="+json);
-		}
-		else {
-			json=null;
-		}
-		return json;
-	}
+//	public List<Reply> replyInsert(Reply r) {
+//		String json=null;
+//		if(bDao.replyInsert(r)) {
+//			List<Reply> rList=bDao.getReplyList(r.getR_bnum());
+//			//json=new Gson().toJson(rList);
+//			//System.out.println("json="+json);
+//		}
+//		else {
+//			//json=null;
+//		}
+//		return rList;
+//	}
 
+	
 	public Map<String, List<Reply>> replyInsertJackson(Reply r) {
 		Map<String, List<Reply>> rMap=null;
 		if(bDao.replyInsert(r)) {
@@ -102,5 +105,31 @@ public class BoardMangement {
 		return rMap;
 	}
 
+	//RedirectAttributes는 Redirect전 session영역에 저장한 뒤 redirect 후 즉시 삭제한다.
+		//삭제직전 session영역에 저장했던 데이터는 request객체에 저장한다.
+		//addFlashAttribute :post방식(session에 저장후 1번 사용하면 삭제함)
+		//attr.addAttribute : get방식 (session에 저장후 request객체에 저장 후 삭제함)
+	@Transactional
+	public ModelAndView boardDelete(Integer bNum, RedirectAttributes attr) throws DbException {
+		System.out.println("bNum="+bNum);
+		mav=new ModelAndView();
+		boolean r=bDao.replyDelete(bNum);
+		boolean a=bDao.aticleDelete(bNum);
+		
+		if(a==false) {		//0개 원글을 삭제한 경우 예외발생시켜서 롤백
+			throw new DbException();
+		}
+		if(r && a) {
+			System.out.println("삭제 트랜잭션 성공");
+			attr.addFlashAttribute("bNum",bNum);	//post방식
+			//attr.addAttribute("bNum",bNum);	//get방식
+		}
+		else {
+			System.out.println("삭제 트랜잭션 실패");
+		}
+		//mav.addObject("bNum",bNum); //get방식으로 
+		mav.setViewName("redirect:boardlist");
+		return mav;
+	}
 
 }

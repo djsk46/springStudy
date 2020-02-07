@@ -49,7 +49,7 @@ public class HomeController {
 	public ModelAndView logout(HttpServletRequest req) {
 		req.getSession().invalidate(); //세션초기화
 		mav=new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("redirect:home");
 		return mav;
 	}
 	

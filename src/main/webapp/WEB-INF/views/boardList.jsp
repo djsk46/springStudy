@@ -130,6 +130,12 @@ html, body {
 </c:forEach>
 </table>
 
+<!--글쓰기  -->
+<form action="writefrm">
+<button>글쓰기</button>
+</form>
+
+
 <!--페이징  -->
 <div align="center">${paging }</div>
 
@@ -173,6 +179,21 @@ function articleView(num) {
 		}
 	});	//keydown End
 }//fct End
+
+console.log("bNum="+'${bNum}');
+
+$(function () {
+	var result='${bNum}';
+	
+if(result===''){
+	return;
+}
+if(parseInt(result)>0){
+	alert("${bNum}"+"번 글을 삭제했습니다.");
+}
+});
+
+
 </script>
 </body>
 </html>

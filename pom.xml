@@ -61,6 +61,16 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!--log4j : 롬복의 @log4j 사용하기 위해 -->
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+
 		<!--slf4j-log4j12대신 logback을 사용하기위해 삭제 -->
 		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
 			<version>${org.slf4j-version}</version> <scope>runtime</scope> </dependency> -->
@@ -155,8 +165,8 @@
 			<version>2.8.5</version>
 		</dependency>
 
-		<!--jackson-databind -->
-		
+		<!--jackson-databind : 스프링에서 가장 많이 사용하는 메세지 컨버터 -->
+
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

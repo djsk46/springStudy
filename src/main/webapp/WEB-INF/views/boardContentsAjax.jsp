@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>Board * Reply Contents</h1>
-	<a href="boardDelete?bNum=${board.b_num }">삭제</a>
+	<a href="boarddelete?bNum=${board.b_num }">삭제</a>
 
 	<table>
 		<tr height="30">
@@ -93,9 +93,7 @@
 	                +"</td ><td width='200'>"+item.r_contents
 	                +"</td><td width='200'>"+item.r_date+"</td></tr>"
 	             });
-	             $("#rTable").html(str);
-			
-				
+	             $("#rTable").html(str);		
 			},
 			error:function(xhr,status){
 				console.log(xhr);

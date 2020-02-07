@@ -8,4 +8,8 @@
   <!--  <typeAlias alias="member" type="com.board.icia.dto.Member"/> -->
   <package name="com.board.icia.dto"/>
 </typeAliases>
+<!-- <typeHandlers>
+LocalDateTime 등록시 <typeAliases>아래에 등록할 것.
+
+</typeHandlers> -->
 </configuration>
