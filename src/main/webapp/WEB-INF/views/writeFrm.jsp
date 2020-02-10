@@ -70,7 +70,7 @@ textarea {
 		console.dir($obj[0].files[1]);	//2번째 파일정보
 		
 		//FormData 사용 목적
-		//1. multipart/form-data를 전송시 무조건 사용(파일 업로드)
+		//1. multipart/form-data를  Ajax로 전송시 무조건 사용(파일 업로드)
 		//2. ajax를 이용해서 서버로 넘긴다. (restFul에서 사용함)	
 		//3. FormData객체는 form의 일부 데이터만 서버에 전송할때도 좋다.
 		

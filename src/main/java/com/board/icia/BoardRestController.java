@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.service.BoardMangement;
+import com.google.gson.Gson;
 
 //@Contoroller
 @RestController
@@ -61,16 +63,37 @@ public class BoardRestController {
 		
 }
 	
+//	@PostMapping(value = "/boardwrite", produces = "application/json;charset=utf8")
+//	public String boardWrite(Board board,List<MultipartFile> files) {
+//		//파일태그명과 일치할것.
+//		String json=new Gson().toJson(files);
+//		System.out.println("title ="+board.getB_title());
+//		//for(int i=0;i<files.size();i++)
+//		System.out.println("files="+files.get(0).getOriginalFilename());
+//		System.out.println("files="+files.get(0).getOriginalFilename());
+//		
+//		return json;
+//		
+//	}
+	
 	@PostMapping(value = "/boardwrite", produces = "application/json;charset=utf8")
-	public String boardWrite(Board board,@ModelAttribute List<MultipartFile> files) {
+	public String boardWrite(MultipartHttpServletRequest multi) {
 		//파일태그명과 일치할것.
-		String json="{\"a\":\"1\"}";
-		System.out.println("board ="+board);
-		System.out.println("files="+files);
+		System.out.println("title ="+multi.getParameter("b_title"));
+		System.out.println("fileCheck="+multi.getParameter("fileCheck"));
+		List<MultipartFile> files=multi.getFiles("files");
+		for(int i=0;i<files.size();i++) {
+			System.out.println("files="+files.get(i).getOriginalFilename());
+		}
+		String json=new Gson().toJson(files);
 		
 		return json;
 		
 	}
+	
+	
+	
+	
 	
 }
 

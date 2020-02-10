@@ -35,6 +35,19 @@
 	<insert id="replyInsert" parameterType="reply">
 	INSERT INTO R VALUES(REPLY_SEQ.NEXTVAL,#{r_bnum},#{r_contents},#{r_id},default)	
 	</insert>
+	
+	<insert id="boardWrite" parameterType="board" useGeneratedKeys="true" keyProperty="b_num">
+	<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+	SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	INSERT INTO B
+	 VALUES(#{b_num},#{b_title},#{b_contents},#{b_id},DEFAULT,DEFAULT)
+	</insert>
+	
+	<insert id="fileInsert" parameterType="Map">
+	INSERT INTO BF VALUES(BF_SEQ.NEXTVAL,#{bnum},#{oriFileName},#{sysFileName})
+	
+	</insert>
 
 
 
