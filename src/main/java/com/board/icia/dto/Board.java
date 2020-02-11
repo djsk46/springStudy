@@ -1,6 +1,7 @@
 package com.board.icia.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 

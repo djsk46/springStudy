@@ -16,11 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.dao.IBoardDao;
+import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.userClass.DbException;
+import com.board.icia.userClass.FileManager;
 import com.board.icia.userClass.Paging;
-import com.board.icia.userClass.UploadFile;
 
 @Service
 public class BoardMangement {
@@ -28,7 +29,7 @@ public class BoardMangement {
 	@Autowired
 	private IBoardDao bDao;
 	@Autowired
-	private UploadFile upload;
+	private FileManager fm;
 
 	ModelAndView mav;
 
@@ -72,6 +73,11 @@ public class BoardMangement {
 		Board board = bDao.getContents(bNum);
 		mav.addObject("board", board);
 		System.out.println("board=" + board);
+		List<Bfile> bfList=bDao.getBfList(bNum);
+		System.out.println("fsize="+bfList.size());
+		
+		mav.addObject("bfList",bfList);
+		
 		List<Reply> rList = bDao.getReplyList(bNum);
 		mav.addObject("rList", rList);
 		view = "boardContentsAjax"; // jsp
@@ -82,6 +88,9 @@ public class BoardMangement {
 		mav.setViewName(view);
 		return mav;
 	}
+	
+	
+	
 
 //	public List<Reply> replyInsert(Reply r) {
 //		String json=null;
@@ -118,20 +127,30 @@ public class BoardMangement {
 		System.out.println("bNum=" + bNum);
 		mav = new ModelAndView();
 		boolean r = bDao.replyDelete(bNum);
+		System.out.println("r=" + r);
+		List<Bfile> bfList=bDao.getBfList(bNum);
+		boolean f= bDao.fileDelete(bNum);
+		System.out.println("service list="+bfList);
+		fm.delete(bfList);
+		System.out.println("f=" + f);
+		
 		boolean a = bDao.aticleDelete(bNum);
-
+		// boolean a=bDao.aticleDelete(1000); //번호가 없어서 실패
+		System.out.println("a=" + a);
+		
 		if (a == false) { // 0개 원글을 삭제한 경우 예외발생시켜서 롤백
 			throw new DbException();
 		}
-		if (r && a) {
-			System.out.println("삭제 트랜잭션 성공");
+		if (r && a && f) {
+			System.out.println("댓글 ,파일, 원글 존재시 삭제 트랜잭션 성공");
 			attr.addFlashAttribute("bNum", bNum); // post방식
-			// attr.addAttribute("bNum",bNum); //get방식
+			// attr.addAttribute("bNum", bNum); //get방식으로 request객체에 넘겨준다.
 		} else {
 			System.out.println("삭제 트랜잭션 실패");
 		}
-		// mav.addObject("bNum",bNum); //get방식으로
+		// mav.addObject("bNum", bNum); //get방식으로 request객체에 넘겨준다.
 		mav.setViewName("redirect:boardlist");
+
 		return mav;
 	}
 
@@ -166,7 +185,7 @@ public class BoardMangement {
 		
 		if (check == 1) {	//첨부파일 여부
 			//int bnum = bDao.getCurBoardNum(); // 현재 글 번호
-			f = upload.fileUp(multi, board.getB_num());
+			f = fm.fileUp(multi, board.getB_num());
 
 			if (f) {
 				view = "redirect:/boardlist"; // url
@@ -178,6 +197,11 @@ public class BoardMangement {
 
 		mav.setViewName(view);
 		return mav;
+	}
+
+	public ModelAndView getMyInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

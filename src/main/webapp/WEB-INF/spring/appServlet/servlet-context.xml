@@ -17,6 +17,7 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	
+	<!--모든 요청을 servlet으로 전달  -->
 	<default-servlet-handler/>   <!--<resources mapping="/resources/**".... 삭제할것 junit테스트시 에러남   -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
@@ -28,6 +29,8 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
+	
+	<!--@Controller 패키지는 반드시 servlet-context.xml 위치해야된다.  -->
 	<context:component-scan
 		base-package="com.board.icia" />
 	<beans:bean

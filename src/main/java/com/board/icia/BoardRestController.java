@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.service.BoardMangement;
+import com.board.icia.service.MemberManagement;
 import com.google.gson.Gson;
 
 //@Contoroller
@@ -90,8 +92,6 @@ public class BoardRestController {
 		return json;
 		
 	}
-	
-	
 	
 	
 	

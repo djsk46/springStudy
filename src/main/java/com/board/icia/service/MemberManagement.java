@@ -98,6 +98,14 @@ public class MemberManagement {
 		mav.setViewName(view);
 		return mav;
 	}
+	public Member getMyInfo(HttpServletRequest req) {
+		String id = (String) req.getSession().getAttribute("id");
+		System.out.println("나의 아이디는 "+id);
+		Member mb=mDao.getMyInfo(id);
+		
+		
+		return mb;
+	}
 
 	
 	

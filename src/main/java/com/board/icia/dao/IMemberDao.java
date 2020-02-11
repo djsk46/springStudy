@@ -21,5 +21,8 @@ public interface IMemberDao {
 	public boolean hashMapTest(Map<String, String> hMap);
 
 	public Map<String, String> hashMapTest2(String id);
+
+	@Select("SELECT * FROM M WHERE M_ID=#{id}")
+	public Member getMyInfo(String id);
 	
 } //interface End

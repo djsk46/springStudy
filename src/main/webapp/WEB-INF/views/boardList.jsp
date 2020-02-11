@@ -88,7 +88,7 @@ html, body {
 <table id="one_table">
 <tr height="30">
 <td width="80" bgcolor="pink" align="center">ID</td>
-<td>${mb.m_id }</td>
+<td><a href="#;" id="m_id">${mb.m_id }</a></td>
 </tr>
 
 <tr height="30">
@@ -147,6 +147,33 @@ html, body {
 
 
 <script>
+
+$("#m_id").on("click",function() {
+	$("#articleView_layer").addClass('open');	//modal박스 오픈
+	
+	$.ajax({
+		type:'get',
+		url:'myinfo',
+		dataType:'json',	
+		success:function(data){
+		//	$("#contents_layer").html(data);
+			console.log(data);
+		},
+		error:function(error){
+			console.log(error);
+		}
+		
+	});//ajax End
+	var $layerWindow=$("#articleView_layer");
+	$layerWindow.find("#bg_layer").on("mousedown",function(event){
+		console.log(event);
+		$layerWindow.removeClass("open");
+	});
+
+	
+}); //fct End
+
+
 
 
 function articleView(num) {

@@ -37,6 +37,8 @@
 	</insert>
 	
 	<insert id="boardWrite" parameterType="board" useGeneratedKeys="true" keyProperty="b_num">
+	<!--useGeneratedKeys="true"  자동증가값을 얻을 수 있음  -->
+	<!-- keyProperty="b_num"(필드명) 오라클은 생략가능하지만 my_sql은 명시해야 됨 -->
 	<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
 	SELECT BOARD_SEQ.NEXTVAL FROM DUAL
 	</selectKey>
@@ -49,6 +51,9 @@
 	
 	</insert>
 
+	<select id="getBfList" parameterType="Integer" resultType="bfile">
+	SELECT * FROM BF WHERE BF_BNUM=#{bNum}
+	</select>
 
 
 </mapper>

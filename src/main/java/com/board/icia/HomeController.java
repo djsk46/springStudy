@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dao.IMemberDao;
 import com.board.icia.dto.Member;
 import com.board.icia.service.MemberManagement;
+import com.google.gson.Gson;
 
 @Controller
 public class HomeController {	
@@ -52,6 +54,16 @@ public class HomeController {
 		mav.setViewName("redirect:home");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/myinfo", method = RequestMethod.GET, produces = "application/json;charset=utf8")
+	public @ResponseBody String myinfo(HttpServletRequest req) {
+		Member mb=mm.getMyInfo(req);
+
+		String json=new Gson().toJson(mb);
+		
+		return json;
+	}
+	
 	
 	//회원가입페이지
 	@RequestMapping(value = "/joinfrm", method = RequestMethod.GET)

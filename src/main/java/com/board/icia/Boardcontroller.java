@@ -1,6 +1,7 @@
 package com.board.icia;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.service.BoardMangement;
+import com.board.icia.userClass.FileManager;
 
 
 
@@ -34,7 +36,6 @@ public class Boardcontroller {
 		mav=bm.getContents(bNum);
 		return mav;
 	}
-	
 	
 	@RequestMapping(value = "/boarddelete", method = RequestMethod.GET)
 	public ModelAndView boardDelete(Integer bNum,RedirectAttributes attr) { 
@@ -59,4 +60,19 @@ public class Boardcontroller {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/download")
+	   public void download(String sysFileName,HttpServletResponse resp) {
+	      String full="K:/Spring_work/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SpringMVCBoard/upload/"+sysFileName;
+	      
+	      FileManager d=new FileManager();
+	      try {
+	         d.download(full, sysFileName, resp);
+	      } catch (Exception e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	   
+	   }
+	
 }
