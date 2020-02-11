@@ -221,6 +221,16 @@
 			<version>5.2.1.RELEASE</version>
 		</dependency>
 
+		<!-- lombok -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+			<scope>provided</scope>
+		</dependency>
+
+
 		<!-- 애플리케이션 단위Test -->
 		<dependency>
 			<groupId>junit</groupId>
