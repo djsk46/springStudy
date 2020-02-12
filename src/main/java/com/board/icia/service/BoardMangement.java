@@ -19,6 +19,7 @@ import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
+import com.board.icia.exception.PageExeption;
 import com.board.icia.userClass.DbException;
 import com.board.icia.userClass.FileManager;
 import com.board.icia.userClass.Paging;
@@ -36,6 +37,9 @@ public class BoardMangement {
 	public ModelAndView getBoardList(Integer pageNum) {
 		List<Board> bList = null;
 		int pNum = (pageNum == null) ? 1 : pageNum;
+		
+		if(pNum<=0)
+			throw new PageExeption("페이지번호가 잘못되었습니다.");
 		mav = new ModelAndView();
 		String view = null;
 		System.out.println("현재 페이지 : " + pNum);

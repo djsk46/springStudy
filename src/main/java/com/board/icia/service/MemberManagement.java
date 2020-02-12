@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dao.IMemberDao;
 import com.board.icia.dto.Member;
+import com.board.icia.exception.IdCheckException;
 //@Component
 @Service
 public class MemberManagement {
@@ -105,6 +106,22 @@ public class MemberManagement {
 		
 		
 		return mb;
+	}
+//	public boolean idAvailable(String m_id) {
+//		Member mb=mDao.getMemberInfo(m_id);
+//	if(mb==null)
+//		return true;	//아이디를 사용할 수 있다.
+//	else
+//		
+//		return false;	//아이디를 사용할 수 없다/
+//	}
+	
+	public String idAvailable(String m_id) {
+		Member mb=mDao.getMemberInfo(m_id);
+	if(mb!=null)
+		throw new IdCheckException("사용불가 아이디입니다.");
+		
+		return "사용가능한 아이디입니다.";	
 	}
 
 	

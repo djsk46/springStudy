@@ -73,6 +73,7 @@ html, body {
 </head>
 
 <body>
+${msg}
 <h1>boardList.jsp</h1>
 <h3>${result }</h3>
 <c:if test="${!empty id }">
@@ -147,6 +148,8 @@ html, body {
 
 
 <script>
+
+
 
 $("#m_id").on("click",function() {
 	$("#articleView_layer").addClass('open');	//modal박스 오픈
