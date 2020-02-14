@@ -4,6 +4,25 @@
 
 <mapper namespace="com.board.icia.dao.IBoardDao">
 
+	<!-- 1. 빈 필드명과 컬럼명이 다르거나 타입이 호환되지 않을때 Aliase 또는 resultMap 사용  -->
+
+<!-- <resultMap type="board" id="board"> 
+   <result property="bnum" column="B_NUM"/>
+   <result property="btitle" column="B_TITLE" />
+   <result property="bcontents" column="B_CONTENTS" javaType="String" jdbcType="NCLOB" />
+   <result property="bid"   column="B_ID" />
+   <result property="bdate" column="B_DATE" />
+   <result property="bviews" column="B_VIEWS" />
+   <result property="mname" column="M_NAME" />
+</resultMap>  -->
+
+<!-- resultMap 사용예(select에서 사용) --> 
+
+<!-- <select id="getBordList" resultMap="board">
+   SELECT B_NUM, B_TITLE, B_CONTENTS, B_ID FROM BOARD
+</select> -->
+
+
 	<select id="getBoardList" parameterType="Integer"
 		resultType="board">
 	<!-- <![CDATA[
@@ -53,6 +72,16 @@
 
 	<select id="getBfList" parameterType="Integer" resultType="bfile">
 	SELECT * FROM BF WHERE BF_BNUM=#{bNum}
+	</select>
+	
+	<select id="myBatisTest"  resultType="member">
+	SELECT * FROM MINFO 
+	<if test="point!=null">
+<!-- 	where ${cName}=#{point} -->
+	where ${cName}=#{point}
+	</if>
+	<!--스탑키 : 검색 완료시 정지  -->
+	<!-- AND ROWNUM=1 -->
 	</select>
 
 

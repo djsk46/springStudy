@@ -146,6 +146,11 @@ ${msg}
 		<div id="contents_layer"></div>
 </div>
 
+<form action="test">
+      컬럼명:<input type="text" name="cName"><br>
+      검색:<input type="text" name="search"/>
+      <button>컬럼 검색</button>
+   </form>
 
 <script>
 

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
+import com.board.icia.dto.Member;
 import com.board.icia.dto.Reply;
 import com.board.icia.exception.PageExeption;
 import com.board.icia.userClass.DbException;
@@ -206,6 +207,20 @@ public class BoardMangement {
 	public ModelAndView getMyInfo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ModelAndView myBatisTest(String cName, Integer search) {
+         mav=new ModelAndView();
+         //Map으로 담는 방법
+//         Map<String,Object> hMap=new HashMap<String,Object>();
+//         hMap.put("cName",cName);
+//         hMap.put("search",search);
+         
+         List<Member> list=bDao.myBatisTest(cName,search);
+         mav.addObject("list",list);
+         mav.setViewName("test");
+         
+		return mav;
 	}
 
 }

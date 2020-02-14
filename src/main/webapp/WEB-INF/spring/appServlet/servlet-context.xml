@@ -49,7 +49,7 @@
 	<interceptor>
 	<!--mapping의 모든 요청은 Controller에 도착하기 전에 가로챈다.  -->
 	<mapping path="/*"/>
-	<!--exclude-mapping의 요천은 가로채지 않는다.  -->
+	<!--exclude-mapping의 요청은 가로채지 않는다.  -->
 	<exclude-mapping path="/"/>
 	<exclude-mapping path="/access"/>
 	<exclude-mapping path="/joinfrm"/>

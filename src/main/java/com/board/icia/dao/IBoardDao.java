@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
+import com.board.icia.dto.Member;
 import com.board.icia.dto.Reply;
 
 public interface IBoardDao {
@@ -36,6 +38,9 @@ public interface IBoardDao {
 
 	@Delete("delete from bf where bf_bnum=#{bNum}")
 	boolean fileDelete(Integer bNum);
+
+	//List<Member> myBatisTest(String cName, Integer search);
+	List<Member> myBatisTest(@Param("cName") String cName, @Param("point")Integer search);
 
 	//@Select("SELECT BOARD_SEQ.CURRVAL FROM DUAL")
 	//int getCurBoardNum();
